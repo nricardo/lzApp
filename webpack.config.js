@@ -1,4 +1,15 @@
 var path = require('path');
+var glob = require('glob');
+
+// get list of modules and their files and
+// create an object with all entry points
+var entries = { lzapp: 'bootstrap.js' };
+
+var modules = glob.sync('*', { cwd: 'src/modules' });
+modules.map(function(module) {
+  var files = glob.sync('modules/'.concat(module, '/**'), { cwd: 'src', nodir: true });
+	entries[module] = files;
+});
 
 module.exports = {
 	// define the tool used
@@ -7,10 +18,7 @@ module.exports = {
 
 	// entry point
 	context: path.join(__dirname, 'src'),
-	entry: {
-		lzapp: 'bootstrap.js',
-		home: ['modules/home/index.js', 'modules/home/home.html']
-	},
+	entry: entries,
 
 	// output definition
 	output: {

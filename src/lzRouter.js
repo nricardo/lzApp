@@ -1,32 +1,35 @@
 'use strict';
 
 // -- import external libs
-import uirouter from 'angular-ui-router';
+import ocLazyLoad from 'oclazyload';
 
 class lzRouter {
-  constructor($stateProvider) {
-    this.$stateProvider = $stateProvider;
-  }
+  constructor($futureStateProvider, $ocLazyLoadProvider) {
+    this.$futureStateProvider = $futureStateProvider;
 
-  loadTemplate($q) {
-    let d = $q.defer();
+    $ocLazyLoadProvider.config({ debug: true });
 
-    require([], () => {
-      let template = path.join('modules', name).concat(name, '.html');
-      let contents = require(module);
-      d.resolve(contents);
+    $futureStateProvider.stateFactory('lazy', ($q, $ocLazyLoad, futureState) => {
+      let defer = $q.defer();
+      let module = futureState.name;
+
+      // load module and its routing definitions
+      $ocLazyLoad.load({
+        name: module,
+        files: ['js/'.concat(module, '.js')]
+      }).then(() => defer.resolve(undefined));
+
+      return defer.promise;
     });
-
-    return d.promise;
   }
 
   $get() {
     return {
       register: (name, path) => {
-        this.$stateProvider.state({
+        this.$futureStateProvider.futureState({
           url: path,
           name: name,
-          templateProvider: this.loadTemplate
+          type: 'lazy'
         });
 
         return this;
@@ -35,6 +38,6 @@ class lzRouter {
   }
 }
 
-export default angular.module('lzrouter', [uirouter])
+export default angular.module('lzrouter', [ocLazyLoad, 'ui.router', 'ct.ui.router.extras'])
 .provider('$lzRouter', lzRouter)
 .name;

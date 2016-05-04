@@ -4,6 +4,6 @@
 import {bootstrap} from 'angular2-now';
 
 // load top level component (main)
-import {lzApp} from 'components/lz-app';
+import {lzApp} from 'components/lz/lz';
 
 bootstrap(lzApp);
