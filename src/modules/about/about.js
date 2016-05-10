@@ -1,20 +1,22 @@
 'use strict';
 
-export default
-angular.module('about', [])
-.config(($stateProvider) => {
-  $stateProvider.state({
-    url: '/about',
-    name: 'about',
-    controllerAs: 'vm',
-    controller: AboutController,
-    template: require('./about.html'),
-  });
-})
-.controller('aboutController', AboutController)
-.name;
+// -- import external libs
+import {Component, State, SetModule} from 'angular2-now';
 
-class AboutController {
+// -- export module definition
+export default SetModule('about', []).name;
+
+// -- module definition
+@Component({ selector: 'about' })
+@State({
+  url: '/about',
+  name: 'about',
+  controllerAs: 'vm',
+  controller: AboutController,
+  template: require('./about.html')
+})
+
+export class AboutController {
   constructor () {
     this.power = 'Power',
     this.responsibility = 'Responsibility';

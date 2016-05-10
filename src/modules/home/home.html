@@ -1,5 +1,7 @@
-<h3>HOME</h3>
-
-<p>
-  This is the <em>HOME</em> page...
-</p>
+<div class="jumbotron">
+  <div class="container">
+    <h1>{{ vm.hello }}</h1>
+    <p class="lead">You've loaded the <strong ng-bind="vm.module | uppercase"></strong> module.</p>
+    <p><a class="btn btn-primary btn-lg" role="button" ng-click="vm.loadTheme()">Load theme!</a></p>
+  </div>
+</div>

@@ -9,11 +9,14 @@ import lzRouter from 'lzRouter';
 // -- import components
 import menu from 'components/menu/menu';
 
-// define this module...
-SetModule('lz-app', [menu, lzRouter]);
+// -- export module definition
+export default SetModule('lz-app', [menu, lzRouter]).name;
+
+// -- define module
 @Inject('$lzRouter')
 @State({ name: '/', url: '/', defaultRoute: true })
 @Component({ selector: 'lz-app', template: require('./lz.html'), controllerAs: 'vm' })
+
 export class lzApp
 {
   modules:Array;
@@ -35,5 +38,3 @@ export class lzApp
     this.$lzRouter.register(name, path);
   }
 }
-
-export default 'lz-app';

@@ -1,12 +1,28 @@
 'use strict';
 
-export default
-angular.module('home', [])
-.config(($stateProvider) => {
-  $stateProvider.state({
-    url: '/home',
-    name: 'home',
-    template: require('./home.html')
-  });
+// -- import external libs
+import {Component, State, SetModule} from 'angular2-now';
+
+// -- export module definition
+export default SetModule('home', []).name;
+
+// -- define module
+@Component({ selector: 'home' })
+@State({
+  url: '/home',
+  name: 'home',
+  controllerAs: 'vm',
+  controller: HomeController,
+  template: require('./home.html')
 })
-.name;
+
+export class HomeController {
+  constructor () {
+    this.module = 'home';
+    this.hello = 'Hello, world!';
+  }
+
+  loadTheme() {
+    require('./home.scss');
+  }
+}

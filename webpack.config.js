@@ -57,7 +57,7 @@ module.exports = {
 			// process SASS/SCSS files and loads them
 			{
 	      test: /\.scss$/,
-				loaders: ['style', 'css', 'sass']
+				loaders: ['style', 'css', 'postcss', 'sass']
 			},
 
 			// loads up images
@@ -65,16 +65,24 @@ module.exports = {
 			{ test: /\.png$/,	loader: 'url', query: { limit: 8192, mimetype: 'image/png' }, exclude: '/^http:/' },
 
 	    // needed by bootstrap's
-	    /*
-	    { test: /\.eot$/,    loader: 'file' },
-	    { test: /\.svg$/,    loader: 'url?limit=8192&mimetype=image/svg+xml' },
-	    { test: /\.ttf$/,    loader: 'url?limit=8192&mimetype=application/octet-stream' },
-	    */
-	    { test: /\.woff2?$/, loader: 'url?limit=8192&mimetype=application/font-woff' }
+	    //{ test: /\.woff2?$/, loader: 'url?limit=8192&mimetype=application/font-woff' }
 	  ]
 	},
 
-	// resolvers definitions
+  postcss: function () {
+    return [
+      // cleans up unused css selectors
+      require('usedcss')({
+        js:   [ 'src/**/*.js' ],
+        html: [ 'public/index.html', 'src/**/*.html' ]
+      }),
+
+      // auto-prefixes css rules
+      require('autoprefixer')
+    ]
+  },
+
+	// resolver definitions
 	resolve: {
 		root: path.join(__dirname, 'src'),
 		modulesDirectories: ['node_modules']
