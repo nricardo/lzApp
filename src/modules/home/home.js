@@ -22,7 +22,7 @@ export class HomeController {
     this.hello = 'Hello, world!';
   }
 
-  loadTheme() {
-    require('./home.scss');
+  loadTheme () {
+    require('theme/theme.scss');
   }
 }

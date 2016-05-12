@@ -7,7 +7,7 @@ var entries = { lzapp: 'bootstrap.js' };
 
 var modules = glob.sync('*', { cwd: 'src/modules' });
 modules.map(function(module) {
-  var files = glob.sync('modules/'.concat(module, '/**'), { cwd: 'src', nodir: true });
+  var files = glob.sync('modules/'.concat(module, '/**/', module, '.*'), { cwd: 'src', nodir: true });
 	entries[module] = files;
 });
 
@@ -74,7 +74,10 @@ module.exports = {
       // cleans up unused css selectors
       require('usedcss')({
         js:   [ 'src/**/*.js' ],
-        html: [ 'public/index.html', 'src/**/*.html' ]
+        html: [
+        	'src/**/*.html',
+        	'public/index.html'
+        ]
       }),
 
       // auto-prefixes css rules

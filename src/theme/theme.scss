@@ -1,0 +1,12 @@
+@import 'variables';
+
+// -- import Bootstrap CSS framework
+$bootstrap-sass-asset-helper: true;
+@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
+
+@import 'bootswatch';
+
+body {
+  background-image: url('bg.png');
+  background-repeat: repeat;
+}
