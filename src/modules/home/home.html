@@ -3,8 +3,8 @@
     <h1>{{ vm.hello }}</h1>
     <p class="lead">You've loaded the <strong ng-bind="vm.module | uppercase"></strong> module.</p>
 
-    <button class="btn btn-primary btn-lg" role="button" ng-click="vm.loadTheme()">Load theme!</button>
+    <button class="btn btn-success" role="button" ui-sref="about">About us!</button>
   </div>
 </div>
 
-<button class="btn btn-default btn-sm">A button outside the component's scope...</button>
+<button class="btn btn-primary">A button outside the component's scope...</button>

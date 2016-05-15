@@ -16,6 +16,11 @@
       <ul class="nav navbar-nav">
         <li ng-repeat="item in vm.items"><a href ui-sref="{{ item.name }}" ng-bind="item.label || item.name"></a></li>
       </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href ng-click="vm.theme('slate')">Slate</a></li>
+        <li><a href ng-click="vm.theme('superhero')">Superhero</a></li>
+      </ul>
     </div>
   </div>
 </nav>

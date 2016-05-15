@@ -1,5 +1,9 @@
+// -- import some fs util libs
 var path = require('path');
 var glob = require('glob');
+
+// -- import webpack plugins
+var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 
 // get list of modules and their files and
 // create an object with all entry points
@@ -7,14 +11,14 @@ var entries = { lzapp: 'bootstrap.js' };
 
 var modules = glob.sync('*', { cwd: 'src/modules' });
 modules.map(function(module) {
-  var files = glob.sync('modules/'.concat(module, '/**/', module, '.*'), { cwd: 'src', nodir: true });
+  var files = glob.sync('modules/'.concat(module, '/**/*'), { cwd: 'src', nodir: true });
 	entries[module] = files;
 });
 
 module.exports = {
 	// define the tool used
 	// on development to aid debugging
-	devtool: 'source-map',
+	//devtool: 'source-map',
 
 	// entry point
 	context: path.join(__dirname, 'src'),
@@ -26,6 +30,11 @@ module.exports = {
 		filename: '[name].js',
 		path: path.join(__dirname, 'public/js')
 	},
+
+  // setup plugin's
+  plugins: [
+    //new CommonsChunkPlugin("common.js")
+  ],
 
 	// loaders definitions
 	module: {
@@ -57,7 +66,7 @@ module.exports = {
 			// process SASS/SCSS files and loads them
 			{
 	      test: /\.scss$/,
-				loaders: ['style', 'css', 'postcss', 'sass']
+				loaders: ['style?singleton', 'css', 'postcss', 'sass']
 			},
 
 			// loads up images

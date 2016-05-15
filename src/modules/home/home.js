@@ -21,8 +21,4 @@ export class HomeController {
     this.module = 'home';
     this.hello = 'Hello, world!';
   }
-
-  loadTheme () {
-    require('theme/theme.scss');
-  }
 }
