@@ -2,7 +2,6 @@
 
 // -- import external libs
 import ocLazyLoad from 'oclazyload';
-import {Component, SetModule} from 'angular2-now';
 
 export class lzRouter {
   constructor($futureStateProvider, $ocLazyLoadProvider) {
@@ -40,6 +39,6 @@ export class lzRouter {
 }
 
 // -- export module definition
-export default angular.module('lzrouter', [ocLazyLoad, 'ui.router', 'ct.ui.router.extras'])
+export default angular.module('lzRouter', [ocLazyLoad, 'ui.router', 'ct.ui.router.extras'])
 .provider('$lzRouter', lzRouter)
 .name;

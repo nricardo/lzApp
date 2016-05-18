@@ -3,6 +3,9 @@
 // -- import external libs
 import {Component, State, SetModule} from 'angular2-now';
 
+// -- import module's stylesheet
+import styles from './about.scss';
+
 // -- export module definition
 export default SetModule('about', []).name;
 
@@ -18,6 +21,7 @@ export default SetModule('about', []).name;
 
 export class AboutController {
   constructor () {
+    styles.use();
     this.power = 'Power',
     this.responsibility = 'Responsibility';
   }

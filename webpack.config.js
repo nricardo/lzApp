@@ -33,7 +33,7 @@ module.exports = {
 
   // setup plugin's
   plugins: [
-    //new CommonsChunkPlugin("common.js")
+    new CommonsChunkPlugin("common.js")
   ],
 
 	// loaders definitions
@@ -66,7 +66,8 @@ module.exports = {
 			// process SASS/SCSS files and loads them
 			{
 	      test: /\.scss$/,
-				loaders: ['style?singleton', 'css', 'postcss', 'sass']
+        loaders: ['style/useable?singleton', 'css', 'postcss', 'sass'],
+        exclude: /node_modules/
 			},
 
 			// loads up images

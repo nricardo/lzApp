@@ -1,10 +1,12 @@
-<div class="jumbotron" home>
-  <div class="container">
-    <h1>{{ vm.hello }}</h1>
-    <p class="lead">You've loaded the <strong ng-bind="vm.module | uppercase"></strong> module.</p>
+<section home>
+  <div class="jumbotron">
+    <div class="container">
+      <h1>{{ vm.hello }}</h1>
+      <p class="lead">You've loaded the <strong ng-bind="vm.module | uppercase"></strong> module.</p>
 
-    <button class="btn btn-success" role="button" ui-sref="about">About us!</button>
+      <button class="btn btn-success" role="button" ui-sref="about">About us!</button>
+    </div>
   </div>
-</div>
+</section>
 
 <button class="btn btn-primary">A button outside the component's scope...</button>
