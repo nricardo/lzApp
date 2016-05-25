@@ -43,10 +43,8 @@ module.exports = {
 			{
 				test: /\.jsx?$/,
 				loader: 'babel',
-				exclude: /node_modules/,
-		    query: {
-		      stage: 1
-		    }
+        query: { stage: 1 },
+				exclude: /node_modules/
 			},
 
 			// loads HTML templates

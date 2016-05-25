@@ -1,10 +1,19 @@
 'use strict';
 
 export class lzThemer {
-  theme:String;
-
   constructor () {
     this.theme = undefined;
+  }
+
+  apply (theme) {
+    // start using this theme
+    theme.use();
+
+    // unload previous theme (if already present)
+    if (this.theme) this.theme.unuse();
+
+    // re-assign current theme
+    this.theme = theme;
   }
 
   $get() {
@@ -18,32 +27,20 @@ export class lzThemer {
           case 'slate':
             require.ensure([], () => {
               theme = require('theme/slate.scss');
-              theme.use();
-
-              // unload previous theme (if already present)
-              if (this.theme) this.theme.unuse();
-              this.theme = theme;
+              this.apply(theme);
             });
             break;
 
           case 'superhero':
             require.ensure([], () => {
               theme = require('theme/superhero.scss');
-              theme.use();
-
-              // unload previous theme (if already present)
-              if (this.theme) this.theme.unuse();
-              this.theme = theme;
+              this.apply(theme);
             });
             break;
 
           default:
             theme = require('theme/default.scss');
-            theme.use();
-
-            // unload previous theme (if already present)
-            if (this.theme) this.theme.unuse();
-            this.theme = theme;
+            this.apply(theme);
         }
 
         return this;
