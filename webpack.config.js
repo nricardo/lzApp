@@ -3,26 +3,17 @@ var path = require('path');
 var glob = require('glob');
 
 // -- import webpack plugins
+var GlobEntryPlugin = require('./GlobEntryPlugin');
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 
-// get list of modules and their files and
-// create an object with all entry points
-var entries = { lzapp: 'bootstrap.js' };
-
-var modules = glob.sync('*', { cwd: 'src/modules' });
-modules.map(function(module) {
-  var files = glob.sync('modules/'.concat(module, '/**/*'), { cwd: 'src', nodir: true });
-	entries[module] = files;
-});
-
 module.exports = {
-	// define the tool used
-	// on development to aid debugging
-	//devtool: 'source-map',
-
-	// entry point
+	// app's source context
 	context: path.join(__dirname, 'src'),
-	entry: entries,
+
+	// entry point(s)
+	entry: {
+		lzApp: 'bootstrap'
+	},
 
 	// output definition
 	output: {
@@ -33,7 +24,8 @@ module.exports = {
 
   // setup plugin's
   plugins: [
-    new CommonsChunkPlugin("common.js")
+    new GlobEntryPlugin('modules'),
+    new CommonsChunkPlugin('common.js')
   ],
 
 	// loaders definitions
@@ -41,10 +33,9 @@ module.exports = {
 		loaders: [
 			// transpiles ES6 into vanilla ES5 code
 			{
-				test: /\.jsx?$/,
-				loader: 'babel',
-        query: { stage: 1 },
-				exclude: /node_modules/
+        test: /\.jsx?$/,
+				exclude: /node_modules/,
+				loaders: [ 'ng-annotate', 'babel?stage=1' ]
 			},
 
 			// loads HTML templates
