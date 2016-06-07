@@ -2,8 +2,8 @@
 var path = require('path');
 var glob = require('glob');
 
-// -- import webpack plugins
-var GlobEntryPlugin = require('./GlobEntryPlugin');
+// import webpack plugins
+var GlobEntryPlugin = require('glob-entry-webpack-plugin');
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 
 module.exports = {
@@ -24,7 +24,7 @@ module.exports = {
 
   // setup plugin's
   plugins: [
-    new GlobEntryPlugin('modules'),
+    new GlobEntryPlugin(['modules', 'xpto']),
     new CommonsChunkPlugin('common.js')
   ],
 
