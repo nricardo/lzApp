@@ -7,6 +7,9 @@ export class lzRouter {
   constructor($futureStateProvider, $lzLoadrProvider) {
     this.$futureStateProvider = $futureStateProvider;
 
+    // activate debug module on loader
+    $lzLoadrProvider.config({ debug: true });
+
     $futureStateProvider.stateFactory('lazy', ($q, $lzLoadr, futureState) => {
       let defer = $q.defer();
       let module = futureState.name;
